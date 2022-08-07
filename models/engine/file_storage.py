@@ -22,7 +22,6 @@ class FileStorage:
     def all(self, cls=None):
         """returns the dictionary __objects"""
         if cls is not None:
-            cls = eval(cls)
             cls_dict = {}
             for k, v in self.__objects.items():
                 if type(v) == cls:
@@ -63,3 +62,12 @@ class FileStorage:
                 my_json = loads(my_file.read())
                 for key, value in my_json.items():
                     self.__objects[key] = eval(value['__class__'])(**value)
+
+    def delete(self, obj=None):
+        """to delete obj from __objects if it's inside
+        if obj is equal to None, the method should not do anything"""
+        if obj:
+            my_obj = f"{type(obj).__name__}.{obj.id}"
+            if self.__objects[my_obj]:
+                del self.__objects[my_obj]
+                self.save()
