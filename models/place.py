@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Place Module"""
 from sqlalchemy import Column, String, Float, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
+from models.review import Review
 from os import getenv
 import models
 
@@ -35,6 +37,7 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         amenity_ids = list(str())
+        reviews = relationship("Review", backref="place", cascade="delete")
     else:
         city_id = str()
         user_id = str()
@@ -47,3 +50,12 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = list(str())
+
+        @property
+        def reviews(self):
+            """Returns all reviews that have the same id as self.id (Place id)"""
+            my_reviews = list()
+            for review in models.storage.all(Review).values():
+                if self.id == review.place_id:
+                    my_reviews.append(review)
+            return my_reviews
