@@ -39,14 +39,13 @@ deserializes JSON file to instances"""
         self.__session = Session(self.__engine)
 
         if cls:
+            cls = eval(cls)
             my_query = self.__session.query(cls).all()
         else:
-            my_query = self.__session.query(User).all()
-            my_query.append(self.__session.query(State).all())
-            my_query.append(self.__session.query(City).all())
-            my_query.append(self.__session.query(Amenity).all())
-            my_query.append(self.__session.query(Place).all())
-            my_query.append(self.__session.query(Review).all())
+            my_objs = [User, Place, Review, City, State, Amenity]
+            my_query = []
+            for elem in my_objs:
+                my_query.extend(self.__session.query(elem)).all()
 
         object_dict = dict()
         for obj in my_query:
