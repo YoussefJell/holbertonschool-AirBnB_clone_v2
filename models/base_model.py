@@ -3,11 +3,18 @@
 from datetime import datetime
 import models
 from uuid import uuid4
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, DateTime, String
+
+Base = declarative_base()
 
 
 class BaseModel:
     """class BaseModel that defines all common
     attributes/methods for other classes"""
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """*args, **kwargs arguments for
@@ -25,7 +32,6 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            models.storage.new(self)
 
     def __str__(self):
         """string representation of an object"""
@@ -35,6 +41,7 @@ class BaseModel:
         """updates the public instance attribute updated_at
         with the current datetime"""
         self.updated_at = datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
@@ -44,5 +51,10 @@ class BaseModel:
         my_dict['__class__'] = self.__class__.__name__
         my_dict['created_at'] = self.created_at.isoformat()
         my_dict['updated_at'] = self.updated_at.isoformat()
-
+        if my_dict['_sa_instance_state']:
+            del my_dict['_sa_instance_state']
         return my_dict
+
+    def delete(self):
+        """Delete from model storage"""
+        models.storage.delete(self)
