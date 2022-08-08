@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """User Module"""
-from models.base_model import BaseModel
+from sqlalchemy import Column, ForeignKey, String
+from models.base_model import BaseModel, Base
+from os import getenv
 import models
 
 
@@ -13,7 +15,14 @@ class User(BaseModel):
     first_name: string - empty string
     last_name: string - empty string
     """
-    email = str()
-    password = str()
-    first_name = str()
-    last_name = str()
+    __tablename__ = "users"
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        email = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False)
+        first_name = Column(String(128), nullable=False)
+        last_name = Column(String(128), nullable=False)
+    else:
+        email = str()
+        password = str()
+        first_name = str()
+        last_name = str()
