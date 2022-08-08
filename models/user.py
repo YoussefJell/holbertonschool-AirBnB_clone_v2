@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """User Module"""
-from tkinter import CASCADE
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
