@@ -24,9 +24,9 @@ deserializes JSON file to instances"""
         """__init__
         initializing DbStorage
         """
+
         self.__engine = create_engine(
-            f"mysql+mysqldb://{getenv('HBNB_MYSQL_USER')}:{getenv('HBNB_MYSQL_PWD')}\
- @{getenv('HBNB_MYSQL_HOST')}:3306/{getenv('HBNB_MYSQL_DB')}", pool_pre_ping=True)
+            f"mysql+mysqldb://{getenv('HBNB_MYSQL_USER')}:{getenv('HBNB_MYSQL_PWD')}@{getenv('HBNB_MYSQL_HOST')}:3306/{getenv('HBNB_MYSQL_DB')}", pool_pre_ping=True)
         self.reload()
 
         if getenv('HBNB_ENV') == 'test':
