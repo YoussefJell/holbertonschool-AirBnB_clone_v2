@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """User Module"""
-from sqlalchemy import Column, ForeignKey, String
+from sqlalchemy import Column, String
 from models.base_model import BaseModel, Base
 from os import getenv
 import models
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """Class for User Objects
     Attributes:
 
