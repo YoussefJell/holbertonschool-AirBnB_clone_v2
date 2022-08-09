@@ -25,12 +25,3 @@ class Review(BaseModel, Base):
         place_id = str()
         user_id = str()
         text = str()
-
-        @property
-        def reviews(self):
-            """Returns all reviews that have the same id as self.id (State id)"""
-            my_reviews = list()
-            for city in models.storage.all(City).values():
-                if self.id == city.state_id:
-                    my_cities.append(city)
-            return my_cities
