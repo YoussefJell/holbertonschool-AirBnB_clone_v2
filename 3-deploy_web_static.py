@@ -60,6 +60,6 @@ def deploy():
     """creates and distributes an archive to your web servers
     using the function deploy"""
     created_archive = do_pack()
-    if created_archive == False:
+    if created_archive is False:
         return False
     return do_deploy(created_archive)
