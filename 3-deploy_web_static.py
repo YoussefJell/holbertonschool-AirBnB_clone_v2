@@ -48,7 +48,7 @@ def do_deploy(archive_path):
 
     run("rm -rf /data/web_static/current")
 
-    run("ln -fs {0} /data/web_static/current".format(releases_path))
+    run("ln -s {0} /data/web_static/current".format(releases_path))
 
     return True
 
