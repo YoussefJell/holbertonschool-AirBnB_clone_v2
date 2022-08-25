@@ -25,32 +25,35 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    if not exists(archive_path):
-        return False
+    """distributes an archive to your web servers
+    using the function do_deploy"""
+    if exists(archive_path):
 
-    archive_name = archive_path.split('/')[-1]
-    my_folder = archive_name.split('.')[0]
-    releases_path = "/data/web_static/releases/{0}/".format(my_folder)
-    archive_remote_path = "/tmp/{0}".format(archive_name)
+        archive_name = archive_path.split('/')[-1]
+        my_folder = archive_name.split('.')[0]
+        releases_path = "/data/web_static/releases/{0}/".format(my_folder)
+        archive_remote_path = "/tmp/{0}".format(archive_name)
 
-    put(archive_path, archive_remote_path)
+        put(archive_path, archive_remote_path)
 
-    run("mkdir -p {}".format(releases_path))
+        run("mkdir -p {}".format(releases_path))
 
-    run("tar -zxf {0} -C {1}".format(archive_remote_path,
-        releases_path))
+        run("tar -zxf {0} -C {1}".format(archive_remote_path,
+                                         releases_path))
 
-    run("rm {0}".format(archive_remote_path))
+        run("rm {0}".format(archive_remote_path))
 
-    run("mv -f {}web_static/* {}".format(releases_path, releases_path))
+        run("mv -f {}web_static/* {}".format(releases_path, releases_path))
 
-    run("rm -rf {}web_static".format(releases_path))
+        run("rm -rf {}web_static".format(releases_path))
 
-    run("rm -rf /data/web_static/current")
+        run("rm -rf /data/web_static/current")
 
-    run("ln -s {0} /data/web_static/current".format(releases_path))
+        run("ln -s {0} /data/web_static/current".format(releases_path))
 
-    return True
+        return True
+
+    return False
 
 
 def deploy():
