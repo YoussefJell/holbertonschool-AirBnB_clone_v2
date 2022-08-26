@@ -6,7 +6,8 @@ from os.path import exists
 
 env.hosts = [
     '3.80.219.47',
-    '54.152.66.53'
+    '54.152.66.53',
+    'localhost'
 ]
 
 
