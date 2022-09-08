@@ -21,13 +21,20 @@ class BaseModel:
         the constructor of a BaseModel"""
         kwargc = len(kwargs)
         if kwargc > 0:
+            if 'id' not in kwargs:
+                self.id = str(uuid4())
+            if 'created_at' not in kwargs:
+                self.created_at = datetime.now()
+            if 'created_at' in kwargs and 'updated_at' not in kwargs:
+                self.updated_at = self.created_at
+            else:
+                self.updated_at = datetime.now()
             for key, value in kwargs.items():
                 if key == '__class__':
                     continue
-                elif key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.fromisoformat(value))
                 else:
                     setattr(self, key, value)
+
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -35,7 +42,10 @@ class BaseModel:
 
     def __str__(self):
         """string representation of an object"""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+        my_dict = self.__dict__.copy()
+        if my_dict['_sa_instance_state']:
+            del my_dict['_sa_instance_state']
+        return f"[{self.__class__.__name__}] ({self.id}) {my_dict}"
 
     def save(self):
         """updates the public instance attribute updated_at

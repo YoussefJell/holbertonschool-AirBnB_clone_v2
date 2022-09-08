@@ -39,7 +39,7 @@ deserializes JSON file to instances"""
         self.__session = Session(self.__engine)
 
         if cls:
-            cls = eval(cls)
+            cls = eval(cls.__name__)
             my_query = self.__session.query(cls).all()
         else:
             my_objs = [User, Place, Review, City, State, Amenity]
@@ -73,3 +73,7 @@ deserializes JSON file to instances"""
         sess = sessionmaker(bind=self.__engine,
                             expire_on_commit=False)
         self.__session = scoped_session(sess)
+
+    def close(self):
+        """call close() method on the private session attribute (self.__session)"""
+        self.__session.close()
