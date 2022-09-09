@@ -37,7 +37,7 @@ class BaseModel:
         my_dict = self.__dict__.copy()
         if my_dict['_sa_instance_state']:
             del my_dict['_sa_instance_state']
-        return f"[{self.__class__.__name__}] ({self.id}) {my_dict}"
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, my_dict)
 
     def save(self):
         """updates the public instance attribute updated_at
