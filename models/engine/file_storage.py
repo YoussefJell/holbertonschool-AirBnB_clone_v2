@@ -43,7 +43,7 @@ class FileStorage:
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
@@ -67,7 +67,7 @@ class FileStorage:
         """to delete obj from __objects if it's inside
         if obj is equal to None, the method should not do anything"""
         if obj:
-            my_obj = f"{type(obj).__name__}.{obj.id}"
+            my_obj = "{}.{}".format(type(obj).__name__, obj.id)
             if self.__objects[my_obj]:
                 del self.__objects[my_obj]
                 self.save()

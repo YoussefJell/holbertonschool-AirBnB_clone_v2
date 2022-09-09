@@ -26,7 +26,9 @@ deserializes JSON file to instances"""
         """
 
         self.__engine = create_engine(
-            f"mysql+mysqldb://{getenv('HBNB_MYSQL_USER')}:{getenv('HBNB_MYSQL_PWD')}@{getenv('HBNB_MYSQL_HOST')}:3306/{getenv('HBNB_MYSQL_DB')}", pool_pre_ping=True)
+            f"mysql+mysqldb://{0}:{1}@{2}:3306/{3}".format(
+                getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'),
+                getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
         self.reload()
 
         if getenv('HBNB_ENV') == 'test':
@@ -49,7 +51,7 @@ deserializes JSON file to instances"""
 
         object_dict = dict()
         for obj in my_query:
-            object_dict[f"{type(obj).__name__}.{obj.id}"] = obj
+            object_dict["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
         return object_dict
 
