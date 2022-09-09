@@ -23,7 +23,7 @@ def C_page(text):
         upon visiting /c/<text> page
         (text is optional)"""
     text = text.replace("_", " ")
-    return f"C {text}"
+    return "C {}".format(text)
 
 
 if __name__ == '__main__':
