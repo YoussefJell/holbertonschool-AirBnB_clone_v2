@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Base_model module"""
 from datetime import datetime
+from enum import unique
 import models
 from uuid import uuid4
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,7 +13,7 @@ Base = declarative_base()
 class BaseModel:
     """class BaseModel that defines all common
     attributes/methods for other classes"""
-    id = Column(String(60), primary_key=True, nullable=False)
+    id = Column(String(60), unique=True, primary_key=True, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -21,24 +22,16 @@ class BaseModel:
         the constructor of a BaseModel"""
         kwargc = len(kwargs)
         if kwargc > 0:
-            if 'id' not in kwargs:
-                self.id = str(uuid4())
-            if 'created_at' not in kwargs:
-                self.created_at = datetime.now()
-            if 'created_at' in kwargs and 'updated_at' not in kwargs:
-                self.updated_at = self.created_at
-            else:
-                self.updated_at = datetime.now()
             for key, value in kwargs.items():
                 if key == '__class__':
                     continue
+                elif key == 'created_at' or key == 'updated_at':
+                    setattr(self, key, datetime.fromisoformat(value))
                 else:
                     setattr(self, key, value)
-
-        else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = self.created_at
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = self.created_at
 
     def __str__(self):
         """string representation of an object"""
