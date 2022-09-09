@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""7-states_list Module"""
+"""8-cities_by_states Module"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -13,11 +13,17 @@ def close_sqlalchemy_sess(exception):
     storage.close()
 
 
-@app.route('/states_list', strict_slashes=False)
-def list_states():
+@app.route('/cities_by_states', strict_slashes=False)
+def cities_by_states():
     """Displays html page"""
     states = storage.all(State).values()
-    return render_template('7-states_list.html', my_dict=states)
+    my_cities = list()
+
+    for state in states:
+        for city in state.cities:
+            if city.state_id == state.id:
+                my_cities.append(city)
+    return render_template('8-cities_by_states.html', my_state=states, my_cities=my_cities)
 
 
 if __name__ == '__main__':
