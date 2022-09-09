@@ -28,7 +28,8 @@ deserializes JSON file to instances"""
         self.__engine = create_engine(
             f"mysql+mysqldb://{0}:{1}@{2}:3306/{3}".format(
                 getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'),
-                getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
+                getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')),
+            pool_pre_ping=True)
         self.reload()
 
         if getenv('HBNB_ENV') == 'test':
@@ -60,7 +61,8 @@ deserializes JSON file to instances"""
         self.__session.add(obj)
 
     def save(self):
-        """commit all changes of the current database session (self.__session)"""
+        """commit all changes of the current database
+        session (self.__session)"""
         self.__session.commit()
 
     def delete(self, obj=None):
@@ -70,12 +72,14 @@ deserializes JSON file to instances"""
 
     def reload(self):
         """create all tables in the database
-        create the current database session (self.__session) from the engine (self.__engine)"""
+        create the current database session (self.__session)
+         from the engine (self.__engine)"""
         Base.metadata.create_all(self.__engine)
         sess = sessionmaker(bind=self.__engine,
                             expire_on_commit=False)
         self.__session = scoped_session(sess)
 
     def close(self):
-        """call close() method on the private session attribute (self.__session)"""
+        """call close() method on the private session
+        attribute (self.__session)"""
         self.__session.close()
