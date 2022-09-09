@@ -23,7 +23,7 @@ def C_page(text):
         upon visiting /c/<text> page
         (text is optional)"""
     text = text.replace("_", " ")
-    return f"C {text}"
+    return "C {}".format(text)
 
 
 @app.route('/python/')
@@ -33,7 +33,7 @@ def python_page(text="is cool"):
         upon visiting /python/<text> page
         (text default = "is cool")"""
     text = text.replace("_", " ")
-    return f"Python {text}"
+    return "Python {}".format(text)
 
 
 if __name__ == '__main__':
