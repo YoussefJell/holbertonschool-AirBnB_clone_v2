@@ -7,17 +7,17 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def close_sqlalchemy_sess(exception):
-    """remove the current SQLAlchemy Session"""
-    storage.close()
-
-
 @app.route('/states_list', strict_slashes=False)
 def list_states():
     """Displays html page"""
     states = storage.all(State).values()
     return render_template('7-states_list.html', my_dict=states)
+
+
+@app.teardown_appcontext
+def close_sqlalchemy_sess(exception):
+    """remove the current SQLAlchemy Session"""
+    storage.close()
 
 
 if __name__ == '__main__':
