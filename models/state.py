@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """State Module"""
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship

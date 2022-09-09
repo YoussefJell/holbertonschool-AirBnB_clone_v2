@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """FileStorage Module"""
 from json import dumps, loads
 from os.path import exists
