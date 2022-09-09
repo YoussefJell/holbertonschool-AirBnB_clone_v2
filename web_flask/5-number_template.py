@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """5-number_template Module"""
 from flask import Flask, render_template
 

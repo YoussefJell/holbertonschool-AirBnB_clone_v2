@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """8-cities_by_states Module"""
 from flask import Flask, render_template
 from models import storage
@@ -23,7 +23,8 @@ def cities_by_states():
         for city in state.cities:
             if city.state_id == state.id:
                 my_cities.append(city)
-    return render_template('8-cities_by_states.html', my_state=states, my_cities=my_cities)
+    return render_template('8-cities_by_states.html',
+                           my_state=states, my_cities=my_cities)
 
 
 if __name__ == '__main__':

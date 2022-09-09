@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """4-number_route Module"""
 from flask import Flask
 

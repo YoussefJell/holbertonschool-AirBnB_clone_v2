@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """7-states_list Module"""
 from flask import Flask, render_template
 from models import storage
