@@ -44,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         myobj = eval(args[0])()
-        if args[1]:
+        if len(args) > 1:
             for kwords in args[1:]:
                 my_map = kwords.split("=")
 
