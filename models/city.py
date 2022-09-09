@@ -20,7 +20,7 @@ class City(BaseModel, Base):
         state_id = Column(String(60), ForeignKey(
             "states.id"), nullable=False)
         places = relationship("Place", backref="cities",
-                              cascade="delete, delete-orphan")
+                              cascade="all, delete-orphan")
     else:
         state_id = str()
         name = str()
