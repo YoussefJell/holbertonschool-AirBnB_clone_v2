@@ -26,7 +26,7 @@ deserializes JSON file to instances"""
         """
 
         self.__engine = create_engine(
-            f"mysql+mysqldb://{0}:{1}@{2}:3306/{3}".format(
+            "mysql+mysqldb://{0}:{1}@{2}:3306/{3}".format(
                 getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'),
                 getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')),
             pool_pre_ping=True)
