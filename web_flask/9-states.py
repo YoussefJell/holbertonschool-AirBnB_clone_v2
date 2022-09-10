@@ -27,7 +27,7 @@ def many_states(id):
     for state in states:
         if state.id == id:
             return render_template('9-states.html',
-                           my_state=state, my_cities=state.cities)
+                                   my_state=state, my_cities=state.cities)
 
     return render_template('9-states.html', found_id=False)
 
