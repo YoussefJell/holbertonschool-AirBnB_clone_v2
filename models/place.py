@@ -41,7 +41,8 @@ class Place(BaseModel, Base):
         amenity_ids = list(str())
         reviews = relationship("Review", backref="place", cascade="delete")
         amenities = relationship(
-            "Amenity", secondary=place_amenity, viewonly=False, back_populates='place_amenities')
+            "Amenity", secondary=place_amenity, viewonly=False,
+            back_populates='place_amenities')
     else:
         city_id = str()
         user_id = str()
@@ -57,7 +58,8 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
-            """Returns all reviews that have the same id as self.id (Place id)"""
+            """Returns all reviews that have the same id as self.id
+            (Place id)"""
             my_reviews = list()
             for review in models.storage.all(Review).values():
                 if self.id == review.place_id:
@@ -66,7 +68,8 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            """Returns all amenities that have the same id that is in self.amenity_ids"""
+            """Returns all amenities that have the same id that is in
+            self.amenity_ids"""
             my_amenities = list()
             for amenity in models.storage.all(Amenity).values():
                 if amenity.id in self.amenity_ids:

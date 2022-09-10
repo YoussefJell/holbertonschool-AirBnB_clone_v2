@@ -24,7 +24,8 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            """Returns all cities that have the same id as self.id (State id)"""
+            """Returns all cities that have the same id as
+            self.id (State id)"""
             my_cities = list()
             for city in models.storage.all(City).values():
                 if self.id == city.state_id:
