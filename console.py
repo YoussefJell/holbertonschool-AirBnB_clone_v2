@@ -176,7 +176,8 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         value = args[3]
 
-            setattr(myobjects['{}.{}'.format(args[0], args[1])], args[2], value)
+            setattr(myobjects['{}.{}'.format(args[0], args[1])],
+                    args[2], value)
             setattr(myobjects['{}.{}'.format(args[0], args[1])],
                     'updated_at', datetime.now())
             myobjects['{}.{}'.format(args[0], args[1])].save()
