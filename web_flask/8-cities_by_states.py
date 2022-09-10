@@ -7,12 +7,6 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def close_sqlalchemy_sess(exception):
-    """remove the current SQLAlchemy Session"""
-    storage.close()
-
-
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
     """Displays html page"""
@@ -21,10 +15,16 @@ def cities_by_states():
 
     for state in states:
         for city in state.cities:
-            if city.state_id == state.id:
-                my_cities.append(city)
+            my_cities.append(city)
+
     return render_template('8-cities_by_states.html',
                            my_state=states, my_cities=my_cities)
+
+
+@app.teardown_appcontext
+def close_sqlalchemy_sess(exception):
+    """remove the current SQLAlchemy Session"""
+    storage.close()
 
 
 if __name__ == '__main__':
