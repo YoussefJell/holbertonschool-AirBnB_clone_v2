@@ -24,19 +24,12 @@ def list_states():
 def many_states(id):
     """Displays html page"""
     states = storage.all(State).values()
-    my_cities = list()
-
     for state in states:
-        if id and state.id == id:
-            for city in state.cities:
-                if city.state_id == state.id:
-                    my_cities.append(city)
-        elif not id:
-            for city in state.cities:
-                if city.state_id == state.id:
-                    my_cities.append(city)
-    return render_template('8-cities_by_states.html',
-                           my_state=states, my_cities=my_cities)
+        if state.id == id:
+            return render_template('9-states.html',
+                           my_state=state, my_cities=state.cities)
+
+    return render_template('9-states.html', found_id=False)
 
 
 if __name__ == '__main__':
