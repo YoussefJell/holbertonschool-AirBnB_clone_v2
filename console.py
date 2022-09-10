@@ -76,8 +76,8 @@ class HBNBCommand(cmd.Cmd):
             storage.reload()
             myobjects = storage.all()
 
-            if myobjects.get(f'{args[0]}.{args[1]}', 0):
-                print(myobjects[f'{args[0]}.{args[1]}'])
+            if myobjects.get('{}.{}'.format(args[0], args[1]), 0):
+                print(myobjects['{}.{}'.format(args[0], args[1])])
 
             else:
                 print("** no instance found **")
@@ -103,8 +103,8 @@ class HBNBCommand(cmd.Cmd):
             storage.reload()
             myobjects = storage.all()
 
-            if myobjects.get(f'{args[0]}.{args[1]}', 0):
-                del myobjects[f'{args[0]}.{args[1]}']
+            if myobjects.get('{}.{}'.format(args[0], args[1]), 0):
+                del myobjects['{}.{}'.format(args[0], args[1])]
                 storage.save()
 
             else:
@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         storage.reload()
         myobjects = storage.all()
 
-        if myobjects.get(f'{args[0]}.{args[1]}', 0):
+        if myobjects.get('{}.{}'.format(args[0], args[1]), 0):
             if len(args) == 2:
                 print("** attribute name missing **")
                 return
@@ -176,10 +176,10 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         value = args[3]
 
-            setattr(myobjects[f'{args[0]}.{args[1]}'], args[2], value)
-            setattr(myobjects[f'{args[0]}.{args[1]}'],
+            setattr(myobjects['{}.{}'.format(args[0], args[1])], args[2], value)
+            setattr(myobjects['{}.{}'.format(args[0], args[1])],
                     'updated_at', datetime.now())
-            myobjects[f'{args[0]}.{args[1]}'].save()
+            myobjects['{}.{}'.format(args[0], args[1])].save()
 
         else:
             print("** no instance found **")
