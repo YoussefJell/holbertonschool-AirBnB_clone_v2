@@ -10,3 +10,7 @@ body {
 	margin: 30px auto;
 	max-width: 1000px;
 }
+
+.popover h4{
+	padding-bottom: 5px;
+}
