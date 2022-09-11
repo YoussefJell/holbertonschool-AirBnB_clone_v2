@@ -64,6 +64,10 @@ ul.popover {
 	padding: 20px 30px;
 }
 
+ul.popover::-webkit-scrollbar {
+    display: none;
+}
+
 ul.popover-states h2 {
 	font-size: 16px;
 }
